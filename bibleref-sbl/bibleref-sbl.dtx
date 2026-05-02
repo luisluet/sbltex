@@ -181,9 +181,19 @@
 %   variants of \cs{bibleverse} and \cs{ibibleverse} to handle this.
 % \end{macro}
 %
-% \begin{macro}{\pBibleverse, \piBibleverse}
-%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse} and
-%   \cs{piBibleverse} which use \cs{Bibleverse} and \cs{iBibleverse}
+% \begin{macro}{\biblechvs}
+%   Display only the chapter and verse numbers without the book name or other
+%   style formatting. Useful when the book name is already given in context.
+% \end{macro}
+%
+% \begin{macro}{\biblevs}
+%   Display only the verse numbers without the book name, chapter number, or
+%   other style formatting. Useful for displaying just verse references.
+% \end{macro}
+%
+% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblevs}
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse}, \cs{piBibleverse},
+%   and \cs{pbiblevs} which use \cs{Bibleverse}, \cs{iBibleverse}, and \cs{biblevs}
 %   respectively.
 % \end{macro}
 %
@@ -446,7 +456,7 @@ delim_2 "\\quad\\hfill"
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{bibleref-sbl}
-  [2026-04-04 v1.0 Society of Biblical Literature Bibleref Style (DCP)]
+  [2026-04-30 v1.0 Society of Biblical Literature Bibleref Style (DCP); extended LL]
 %    \end{macrocode}
 %
 %    \begin{macrocode}
@@ -494,10 +504,56 @@ delim_2 "\\quad\\hfill"
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\pBibleverse, \piBibleverse}
+% \begin{macro}{\biblechvs}
 %
-%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse} and
-%   \cs{piBibleverse} which use \cs{Bibleverse} and \cs{iBibleverse}
+%   Command to display only the chapter and verse numbers without the book name
+%   or other style formatting.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand*{\biblechvs}{%
+  \let\@bv@current@bkchsep\BRbkchsep
+  \let\@bv@current@titlestyle\BRbooktitlestyle
+  \def\@bv@restore{%
+    \let\BRbkchsep\@bv@current@bkchsep
+    \let\BRbooktitlestyle\@bv@current@titlestyle
+  }%
+  \def\BRbkchsep{}%
+  \def\BRbooktitlestyle##1{}%
+  \@bible@verse
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\biblevs}
+%
+%   Command to display only the verse numbers without the book name, chapter
+%   number, or other style formatting.
+%
+%    \begin{macrocode}
+\DeclareRobustCommand*{\biblevs}{%
+  \let\@bv@current@titlestyle\BRbooktitlestyle
+  \let\@bv@current@chapterstyle\BRchapterstyle
+  \let\@bv@current@bkchsep\BRbkchsep
+  \let\@bv@current@chvsep\BRchvsep
+  \def\@bv@restore{%
+    \let\BRbooktitlestyle\@bv@current@titlestyle
+    \let\BRchapterstyle\@bv@current@chapterstyle
+    \let\BRbkchsep\@bv@current@bkchsep
+    \let\BRchvsep\@bv@current@chvsep
+  }%
+  \def\BRbooktitlestyle##1{}%
+  \def\BRchapterstyle##1{}%
+  \def\BRbkchsep{}%
+  \def\BRchvsep{}%
+  \@bible@verse
+}
+%    \end{macrocode}
+% \end{macro}
+%
+% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblevs}
+%
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse}, \cs{piBibleverse},
+%   and \cs{pbiblevs} which use \cs{Bibleverse}, \cs{iBibleverse}, and \cs{biblevs}
 %   respectively.
 %
 %    \begin{macrocode}
@@ -512,6 +568,11 @@ delim_2 "\\quad\\hfill"
        \brp@parse[#1]{#2}%
        \brp@convert
        \let\brp@do\iBibleverse
+       \brp@brlist}
+      \newcommand{\pbiblevs}[2][]{%
+       \brp@parse[#1]{#2}%
+       \brp@convert
+       \let\brp@do\biblevs
        \brp@brlist}}
     {}
 }
