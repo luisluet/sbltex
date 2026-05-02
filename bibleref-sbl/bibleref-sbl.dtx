@@ -937,8 +937,8 @@ delim_2 "\\quad\\hfill"
 %
 %    \begin{macrocode}
 \newcommand*{\brsbldefaults}{%
-  \renewcommand*{\BRbooknumberstyle}[1]{##1~}%
-  \renewcommand*{\BRepistlenumberstyle}[1]{##1~}%
+  \renewcommand*{\BRbooknumberstyle}[1]{##1\,}%
+  \renewcommand*{\BRepistlenumberstyle}[1]{##1\,}%
   \renewcommand*{\BRbookof}{}%
   \renewcommand*{\BRgospel}{}%
   \renewcommand*{\BRepistleto}{}%
@@ -949,11 +949,11 @@ delim_2 "\\quad\\hfill"
   \renewcommand*{\BRotherchapterstyle}[1]{(##1)}%
   \renewcommand*{\BRversestyle}[1]{##1}%
   \renewcommand*{\BRversesuffixstyle}[1]{##1}%
-  \renewcommand*{\BRbkchsep}{ }%
+  \renewcommand*{\BRbkchsep}{~}%
   \renewcommand*{\BRchvsep}{:}%
-  \renewcommand*{\BRchsep}{;}%
+  \renewcommand*{\BRchsep}{;\thinspace}%
   \renewcommand*{\BRvrsep}{--}%
-  \renewcommand*{\BRvsep}{,}%
+  \renewcommand*{\BRvsep}{,\thinspace}%
   \renewcommand*{\BRperiod}{}%
 }
 %    \end{macrocode}
