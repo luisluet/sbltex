@@ -191,15 +191,10 @@
 %   other style formatting. Useful for displaying just verse references.
 % \end{macro}
 %
-% \begin{macro}{\ibiblevs, \ibiblechvs}
-%   Indexed variants of \cs{biblevs} and \cs{biblechvs} for adding references
-%   to indexes without the book name or chapter information.
-% \end{macro}
-%
-% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblevs, \pbiblechvs, \pibiblevs, \pibiblechvs}
-%   If \pkg{bibleref-parse} is loaded define parser variants which use
-%   \cs{Bibleverse}, \cs{iBibleverse}, \cs{biblevs}, \cs{biblechvs},
-%   \cs{ibiblevs}, and \cs{ibiblechvs} respectively.
+% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblevs}
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse}, \cs{piBibleverse},
+%   and \cs{pbiblevs} which use \cs{Bibleverse}, \cs{iBibleverse}, and \cs{biblevs}
+%   respectively.
 % \end{macro}
 %
 % \begin{macro}{\pibible}
@@ -555,34 +550,11 @@ delim_2 "\\quad\\hfill"
 %    \end{macrocode}
 % \end{macro}
 %
-% \begin{macro}{\ibiblevs, \ibiblechvs}
+% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblechvs, \pbiblevs}
 %
-%   Indexed variants of \cs{biblevs} and \cs{biblechvs} for adding to indexes.
-%
-%    \begin{macrocode}
-\DeclareRobustCommand*{\ibiblevs}[1][\bvidxpgformat]{%
-  \def\@bv@idxpgformat{#1}%
-  \@bv@idxtrue
-  \def\@bv@idxentry{}%
-  \biblevs
-}
-%    \end{macrocode}
-%
-%    \begin{macrocode}
-\DeclareRobustCommand*{\ibiblechvs}[1][\bvidxpgformat]{%
-  \def\@bv@idxpgformat{#1}%
-  \@bv@idxtrue
-  \def\@bv@idxentry{}%
-  \biblechvs
-}
-%    \end{macrocode}
-% \end{macro}
-%
-% \begin{macro}{\pBibleverse, \piBibleverse, \pbiblevs, \pbiblechvs, \pibiblevs, \pibiblechvs}
-%
-%   If \pkg{bibleref-parse} is loaded define parser variants which use
-%   \cs{Bibleverse}, \cs{iBibleverse}, \cs{biblevs}, \cs{biblechvs},
-%   \cs{ibiblevs}, and \cs{ibiblechvs} respectively.
+%   If \pkg{bibleref-parse} is loaded define \cs{pBibleverse}, \cs{piBibleverse}, \cs{pbiblechvs}
+%   and \cs{pbiblevs} which use \cs{Bibleverse}, \cs{iBibleverse}, \cs{biblechvs} and \cs{biblevs}
+%   respectively.
 %
 %    \begin{macrocode}
 \AtEndPreamble{
@@ -597,25 +569,15 @@ delim_2 "\\quad\\hfill"
        \brp@convert
        \let\brp@do\iBibleverse
        \brp@brlist}
-      \newcommand{\pbiblevs}[2][]{%
-       \brp@parse[#1]{#2}%
-       \brp@convert
-       \let\brp@do\biblevs
-       \brp@brlist}
-      \newcommand{\pbiblechvs}[2][]{%
+     \newcommand{\pbiblechvs}[2][]{%
        \brp@parse[#1]{#2}%
        \brp@convert
        \let\brp@do\biblechvs
        \brp@brlist}
-      \newcommand{\pibiblevs}[2][]{%
+      \newcommand{\pbiblevs}[2][]{%
        \brp@parse[#1]{#2}%
        \brp@convert
-       \let\brp@do\ibiblevs
-       \brp@brlist}
-      \newcommand{\pibiblechvs}[2][]{%
-       \brp@parse[#1]{#2}%
-       \brp@convert
-       \let\brp@do\ibiblechvs
+       \let\brp@do\biblevs
        \brp@brlist}}
     {}
 }
